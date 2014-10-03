@@ -41,5 +41,5 @@
 
 //usage eg
 $dude='dsfsd".sd -_fsdf';// use post ,get variables 
-// email,sanitise,onlyint,onlystring are the available inputs( min and max length of the string ) 
+// email,sanitise,onlyint,onlystring,onlystringnumbspace are the available inputs( min and max length of the string ) 
 if(check($dude,"sanitise","1","20")=="good"){echo"ok";}else{echo"not ok";}
