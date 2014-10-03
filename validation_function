@@ -1,0 +1,45 @@
+
+<?php function check($string,$type,$minlength,$maxlength)
+{
+	$mg="bad";$go="ok";
+	$stringlength=strlen($string);
+	if($maxlength<$minlength){$go="no";}
+	if(($stringlength<=0||$stringlength<$minlength||$stringlength>$maxlength)&&$go=="ok"){$go="no";$mg="Input length error";}
+	$abc[0]='"';$a[1]="'";
+    $i=0;
+	if($go=="ok")
+	{
+    while($i<=1)
+    {
+       if (strpos($string,$a[$i])!== false) {$go="no";$mg="bad Characters found";} 
+	   $i++;
+	}
+	}
+	if($go=="ok")
+	{	
+	if($type=="onlystringnumbspace"){
+	if (preg_match('/^[A-Za-z0-9 ]*$/', $string)) {$mg="good";}else{$mg="Only numbers,spaces,letters";}
+	}
+	elseif($type=="onlystring"){
+	if (preg_match('/^[A-Za-z]*$/', $string)) {$mg="good";}else{$mg="Only letters";}
+	}
+	elseif($type=="onlyint"){
+	if (preg_match('/^[0-9]*$/', $string)) {$mg="good";}else{$mg="Only numbers";}
+	}
+	elseif($type=="email"){
+	if (preg_match('/^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,4})$/', $string)) {$mg="good";}else{$mg="Invalid Email";}
+	}
+	elseif($type=="sanitise"){
+	if (preg_match('/^[-A-Za-z0-9 ._@,]*$/', $string)) {$mg="good";}else{$mg="Invalid characters found";}
+	}
+	elseif($type=="password"){
+	if (preg_match('/^[-A-Za-z0-9._@]*$/', $string)) {$mg="good";}else{$mg="Invalid characters found";}
+	}
+	}
+	return $mg;
+}?>
+
+//usage eg
+$dude='dsfsd".sd -_fsdf';// use post ,get variables 
+// email,sanitise,onlyint,onlystring are the available inputs( min and max length of the string ) 
+if(check($dude,"sanitise","1","20")=="good"){echo"ok";}else{echo"not ok";}
